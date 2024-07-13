@@ -51,17 +51,17 @@ Example usage (in TAB's `config.yml`):
 ```yaml
 scoreboard:
   scoreboards:
-    # Default scoreboard
-    scoreboard:
-      title: Normal scoreboard
-      lines:
-        - ' The default scoreboard of my server!'
-    # Combat scoreboard
+    # Combat scoreboard (TAB checks top to bottom)
     combat:
       display-condition: "%cu_in_combat%=true" # <- the condition
       title: Combat scoreboard
       lines:
         - ' You are in combat!'
         - ' %cu_combat_time_left% secs left'
+    # Default scoreboard
+    scoreboard:
+      title: Normal scoreboard
+      lines:
+        - ' The default scoreboard of my server!'
 ```
 </br></details>
