@@ -19,14 +19,16 @@ public class CommandListener implements Listener {
     public void onCommand(PlayerCommandPreprocessEvent event) {
         if (this.plugin.getConfig().getBoolean("enable-command-blocker")){
             if (CombatTag.playersInCombat.containsKey(event.getPlayer().getUniqueId())) {
-                String command = event.getMessage().split(" ")[0];
+                String message = event.getMessage();
                 if (this.plugin.getConfig().getBoolean("command-blocker.bypass-colons")) {
-                    if (command.contains(":")) {
-                        command = "/" + command.split(":")[1];
+                    String[] args = message.split(" ");
+                    if (args[0].contains(":")) {
+                        args[0] = "/" + args[0].split(":")[1];
+                        message = String.join(" ", args);
                     }
                 }
                 List<String> blockedCommands = this.plugin.getConfig().getStringList("command-blocker.blocked-cmds");
-                if (blockedCommands.contains(command)) {
+                if (blockedCommands.contains(message)) {
                     event.setCancelled(true);
                     String msg = this.plugin.getConfig().getString("command-blocker.blocked-msg");
                     if (!msg.isBlank())

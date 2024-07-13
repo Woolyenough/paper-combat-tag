@@ -21,6 +21,6 @@ command-blocker:
   # Enabled: if command has a colon in (e.g. /plugin:spawn), it will ignore the text before the colon, and only check it as '/spawn'
   bypass-colons: true
   blocked-cmds:
-    - "/spawn"
+    - "/warp spawn"
     - "/home"
     - "/tpa"
