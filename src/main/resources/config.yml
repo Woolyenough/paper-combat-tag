@@ -1,0 +1,26 @@
+# All messages use Adventure's MiniMessage: https://docs.advntr.dev/minimessage/format.html
+# All messages support PlaceholderAPI placeholders
+# Make any message an empty string "" to disable it
+
+# Enable the plugin's features?
+enabled: true
+
+combat-duration: 10.0
+
+# Internal placeholder: [otherPlayer]
+combat-tagged-message: "<red>You are now in combat with [otherPlayer] for %ct_time_left% seconds"
+
+in-combat-action-bar: "<red>You are in combat! <black><b>|</b> <red>Seconds left<grey>: <white>%ct_time_left%"
+
+combat-expired-message: "<green>You are no longer in combat"
+
+# Enable the command blocker?
+enable-command-blocker: true
+command-blocker:
+  blocked-msg: "<red>That command is blocked while you're in combat! <grey><i>(Seconds left: %ct_time_left%)"
+  # Enabled: if command has a colon in (e.g. /plugin:spawn), it will ignore the text before the colon, and only check it as '/spawn'
+  bypass-colons: true
+  blocked-cmds:
+    - "/spawn"
+    - "/home"
+    - "/tpa"

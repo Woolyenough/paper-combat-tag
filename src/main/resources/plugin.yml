@@ -1,0 +1,13 @@
+name: CombatTag
+version: '${version}'
+main: wtf.wooly.combattag.CombatTag
+api-version: '1.20'
+authors: [Woolyenough]
+website: https://modrinth.com/project/combat-tag
+softdepend: [PlaceholderAPI]
+
+commands:
+  combat-tag:
+    aliases:
+      - ct
+    permission: combattag.admin

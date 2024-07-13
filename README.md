@@ -1,0 +1,67 @@
+Paper/Bukit plugin that can block commands, display messages & different scoreboards when players hit each other for a specified time. Simple and lightweight.
+
+<details><summary><b>Commands, Permissions & Placeholders</b></summary>
+
+- `/combat-tag reload` (alias: `/ct`) - reloads the config
+
+Command requires the permission `combattag.admin`.
+
+**Placeholders:**
+- `%ct_time_left%` - time left in combat (in seconds)
+- `%cu_in_combat%` - whether the player is in combat (true/false)
+
+_(Yeah... not much; what a simple plugin!)_
+</br></details>
+<details><summary><b>Default config</b></summary>
+
+```yaml
+# All messages use Adventure's MiniMessage: https://docs.advntr.dev/minimessage/format.html
+# All messages support PlaceholderAPI placeholders
+# Make any message an empty string "" to disable it
+
+# Enable the plugin's features?
+enabled: true
+
+combat-duration: 10.0
+
+# Internal placeholder: [otherPlayer]
+combat-tagged-message: "<red>You are now in combat with [otherPlayer] for %ct_time_left% seconds"
+
+in-combat-action-bar: "<red>You are in combat! <black><b>|</b> <red>Seconds left<grey>: <white>%ct_time_left%"
+
+combat-expired-message: "<green>You are no longer in combat"
+
+# Enable the command blocker?
+enable-command-blocker: true
+command-blocker:
+  blocked-msg: "<red>That command is blocked while you're in combat! <grey><i>(Seconds left: %ct_time_left%)"
+  # Enabled: if command has a colon in (e.g. /plugin:spawn), it will ignore the text before the colon, and only check it as '/spawn'
+  bypass-colons: true
+  blocked-cmds:
+    - "/spawn"
+    - "/home"
+    - "/tpa"
+```
+</br></details>
+<details><summary><b>Combat scoreboard</b></summary>
+
+[TAB](https://github.com/NEZNAMY/TAB) offers a pretty nifty feature where you can display scoreboards determined by conditions. You can use this in conjunction with the `in_combat` placeholder offered by this plugin to create a scoreboard that is displayed when the player is in combat.
+
+Example usage (in TAB's `config.yml`):
+```yaml
+scoreboard:
+  scoreboards:
+    # Default scoreboard
+    scoreboard:
+      title: Normal scoreboard
+      lines:
+        - ' The default scoreboard of my server!'
+    # Combat scoreboard
+    combat:
+      display-condition: "%cu_in_combat%=true" # <- the condition
+      title: Combat scoreboard
+      lines:
+        - ' You are in combat!'
+        - ' %cu_combat_time_left% secs left'
+```
+</br></details>
