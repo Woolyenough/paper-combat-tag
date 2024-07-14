@@ -17,24 +17,51 @@ public class CommandListener implements Listener {
     }
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event) {
-        if (this.plugin.getConfig().getBoolean("enable-command-blocker")){
-            if (CombatTag.playersInCombat.containsKey(event.getPlayer().getUniqueId())) {
-                String message = event.getMessage();
-                if (this.plugin.getConfig().getBoolean("command-blocker.bypass-colons")) {
-                    String[] args = message.split(" ");
-                    if (args[0].contains(":")) {
-                        args[0] = "/" + args[0].split(":")[1];
-                        message = String.join(" ", args);
+        if (!plugin.getConfig().getBoolean("enable-command-blocker")) {
+            return;
+        }
+        if (!CombatTag.playersInCombat.containsKey(event.getPlayer().getUniqueId())) {
+            return;
+        }
+
+        String message = event.getMessage();
+        String[] args = message.split(" ");
+
+        if (plugin.getConfig().getBoolean("command-blocker.bypass-colons") && args[0].contains(":")) {
+            args[0] = "/" + args[0].split(":")[1];
+            message = String.join(" ", args);
+        }
+
+        List<String> blockedCommands = plugin.getConfig().getStringList("command-blocker.blocked-cmds");
+        boolean matchEntireWords = plugin.getConfig().getBoolean("command-blocker.match-entire-words");
+
+        if (matchEntireWords) {
+            for (String cmd : blockedCommands) {
+                String[] blockedArgs = cmd.split(" ");
+                boolean match = true;
+
+                for (int i = 0; i < blockedArgs.length; i++) {
+                    if (i >= args.length || !args[i].equalsIgnoreCase(blockedArgs[i])) {
+                        match = false;
+                        break;
                     }
                 }
-                List<String> blockedCommands = this.plugin.getConfig().getStringList("command-blocker.blocked-cmds");
-                if (blockedCommands.contains(message)) {
-                    event.setCancelled(true);
-                    String msg = this.plugin.getConfig().getString("command-blocker.blocked-msg");
-                    if (!msg.isBlank())
-                        event.getPlayer().sendMessage(deserialise(event.getPlayer(), msg));
+                if (match) {
+                    cancelEvent(event);
+                    return;
                 }
             }
+        } else {
+            if (blockedCommands.contains(message.toLowerCase())) {
+                cancelEvent(event);
+            }
+        }
+    }
+    private void cancelEvent(PlayerCommandPreprocessEvent event) {
+        event.setCancelled(true);
+        String msg = plugin.getConfig().getString("command-blocker.blocked-msg");
+        if (!msg.isBlank()) {
+            event.getPlayer().sendMessage(deserialise(event.getPlayer(), msg));
         }
     }
 }
