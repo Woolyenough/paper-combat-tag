@@ -8,7 +8,7 @@ Command requires the permission `combattag.admin`.
 
 **Placeholders:**
 - `%ct_time_left%` - time left in combat (in seconds)
-- `%cu_in_combat%` - whether the player is in combat (true/false)
+- `%ct_in_combat%` - whether the player is in combat (true/false)
 
 _(Yeah... not much; what a simple plugin!)_
 </br></details>
