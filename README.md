@@ -22,23 +22,25 @@ _(Yeah... not much; what a simple plugin!)_
 # Enable the plugin's features?
 enabled: true
 
-combat-duration: 10.0
+combat-duration: 20.0
 
 # Internal placeholder: [otherPlayer]
-combat-tagged-message: "<red>You are now in combat with [otherPlayer] for %ct_time_left% seconds"
+combat-tagged-message: "<#cb0000>You are now in combat with [otherPlayer]"
 
-in-combat-action-bar: "<red>You are in combat! <black><b>|</b> <red>Seconds left<grey>: <white>%ct_time_left%"
+in-combat-action-bar: "<#cb0000>You are in combat! <grey>(<#ffd0a8>%ct_time_left%<grey>)"
 
 combat-expired-message: "<green>You are no longer in combat"
 
 # Enable the command blocker?
 enable-command-blocker: true
 command-blocker:
-  blocked-msg: "<red>That command is blocked while you're in combat! <grey><i>(Seconds left: %ct_time_left%)"
+  blocked-msg: "<red>You can't run this command while in combat!"
   # Enabled: if command has a colon in (e.g. /plugin:spawn), it will ignore the text before the colon, and only check it as '/spawn'
   bypass-colons: true
+  # Enabled: each whole word must match (e.g., `/warp spawn` will block `/warp spawn` but not `/warp1` or `/warp spawn1`)
+  match-entire-words: true
   blocked-cmds:
-    - "/spawn"
+    - "/warp spawn"
     - "/home"
     - "/tpa"
 ```
@@ -53,11 +55,11 @@ scoreboard:
   scoreboards:
     # Combat scoreboard (TAB checks top to bottom)
     combat:
-      display-condition: "%cu_in_combat%=true" # <- the condition
+      display-condition: "%ct_in_combat%=true" # <- the condition
       title: Combat scoreboard
       lines:
         - ' You are in combat!'
-        - ' %cu_combat_time_left% secs left'
+        - ' %ct_time_left% secs left'
     # Default scoreboard
     scoreboard:
       title: Normal scoreboard
