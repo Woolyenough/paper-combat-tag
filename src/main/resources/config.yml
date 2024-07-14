@@ -18,10 +18,16 @@ combat-expired-message: "<green>You are no longer in combat"
 enable-command-blocker: true
 command-blocker:
   blocked-msg: "<red>You can't run this command while in combat!"
+
   # Enabled: if command has a colon in (e.g. /plugin:spawn), it will ignore the text before the colon, and only check it as '/spawn'
   bypass-colons: true
+
   # Enabled: each whole word must match (e.g., `/warp spawn` will block `/warp spawn` but not `/warp1` or `/warp spawn1`)
   match-entire-words: true
+
+  # Enabled: if player leaves while in combat, they die and drop their items
+  kill-on-quit: true
+
   blocked-cmds:
     - "/warp spawn"
     - "/home"

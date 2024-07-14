@@ -1,16 +1,11 @@
-package wtf.wooly.combattag;
+package wtf.wooly.combattag.resources;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
+import wtf.wooly.combattag.CombatTag;
 
 public class PAPIExpansion extends PlaceholderExpansion {
-    private final CombatTag plugin; //
-
-    public PAPIExpansion(CombatTag plugin) {
-        this.plugin = plugin;
-    }
-
     @Override
     public @NotNull String getIdentifier() {
         return "ct";
@@ -34,12 +29,13 @@ public class PAPIExpansion extends PlaceholderExpansion {
             return String.valueOf(CombatTag.playersInCombat.containsKey(offlinePlayer.getUniqueId()));
         }
         if(params.equalsIgnoreCase("time_left")){
+            CombatTag plugin = CombatTag.getPlugin();
             long startedTime = CombatTag.playersInCombat.getOrDefault(offlinePlayer.getUniqueId(), 0L);
             if(startedTime == 0L) return "0";
             long nowTime = System.currentTimeMillis();
-            long timeLeft = startedTime - nowTime + (this.plugin.getConfig().getInt("combat-duration") * 1000);
+            long timeLeft = startedTime - nowTime + (plugin.getConfig().getInt("combat-duration") * 1000L);
             int timeLeftInt = (int) timeLeft / 1000;
-            if(timeLeftInt == this.plugin.getConfig().getInt("combat-duration"))
+            if(timeLeftInt == plugin.getConfig().getInt("combat-duration"))
                 timeLeftInt -= 1;
             return String.valueOf(timeLeftInt+1);
         }

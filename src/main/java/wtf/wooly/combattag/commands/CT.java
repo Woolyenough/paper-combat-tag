@@ -11,16 +11,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class CT implements CommandExecutor, TabCompleter {
-    private final CombatTag plugin;
-
-    public CT(CombatTag plugin) {
-        this.plugin = plugin;
-    }
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender.hasPermission(CombatTag.perms)){
             if(args.length >= 1 && args[0].equals("reload")) {
-                this.plugin.getServer().getScheduler().runTask(this.plugin, this.plugin::reloadAll);
+                CombatTag plugin = CombatTag.getPlugin();
+                plugin.getServer().getScheduler().runTask(plugin, plugin::reloadAll);
                 sender.sendMessage("Reloaded config.");
             }
         }

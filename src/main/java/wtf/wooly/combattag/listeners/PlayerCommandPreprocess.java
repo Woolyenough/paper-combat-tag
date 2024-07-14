@@ -10,13 +10,10 @@ import java.util.List;
 
 import static wtf.wooly.combattag.CombatTag.deserialise;
 
-public class CommandListener implements Listener {
-    private final CombatTag plugin;
-    public CommandListener(CombatTag plugin) {
-        this.plugin = plugin;
-    }
+public class PlayerCommandPreprocess implements Listener {
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event) {
+        CombatTag plugin = CombatTag.getPlugin();
         if (!plugin.getConfig().getBoolean("enable-command-blocker")) {
             return;
         }
@@ -58,6 +55,7 @@ public class CommandListener implements Listener {
         }
     }
     private void cancelEvent(PlayerCommandPreprocessEvent event) {
+        CombatTag plugin = CombatTag.getPlugin();
         event.setCancelled(true);
         String msg = plugin.getConfig().getString("command-blocker.blocked-msg");
         if (!msg.isBlank()) {
