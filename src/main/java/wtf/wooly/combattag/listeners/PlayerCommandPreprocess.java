@@ -11,7 +11,7 @@ import java.util.List;
 import static wtf.wooly.combattag.CombatTag.deserialise;
 
 public class PlayerCommandPreprocess implements Listener {
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onCommand(PlayerCommandPreprocessEvent event) {
         CombatTag plugin = CombatTag.getPlugin();
         if (!plugin.getConfig().getBoolean("enable-command-blocker")) {

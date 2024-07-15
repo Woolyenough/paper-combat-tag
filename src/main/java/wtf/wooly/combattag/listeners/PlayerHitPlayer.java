@@ -19,7 +19,7 @@ import static wtf.wooly.combattag.CombatTag.deserialise;
 public class PlayerHitPlayer implements Listener {
     public static final Map<UUID, Integer> playerTaskLog = new HashMap<>();
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
         CombatTag plugin = CombatTag.getPlugin();
         if (!plugin.getConfig().getBoolean("enabled")) return;
