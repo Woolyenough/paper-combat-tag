@@ -1,5 +1,6 @@
 package wtf.wooly.combattag.listeners;
 
+import org.bukkit.event.EventPriority;
 import wtf.wooly.combattag.CombatTag;
 
 import net.kyori.adventure.text.Component;
@@ -19,7 +20,7 @@ import static wtf.wooly.combattag.CombatTag.deserialise;
 public class PlayerHitPlayer implements Listener {
     public static final Map<UUID, Integer> playerTaskLog = new HashMap<>();
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
         CombatTag plugin = CombatTag.getPlugin();
         if (!plugin.getConfig().getBoolean("enabled")) return;

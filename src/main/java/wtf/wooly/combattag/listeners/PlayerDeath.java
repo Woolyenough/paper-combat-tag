@@ -1,6 +1,7 @@
 package wtf.wooly.combattag.listeners;
 
 import net.kyori.adventure.text.Component;
+import org.bukkit.event.EventPriority;
 import wtf.wooly.combattag.CombatTag;
 
 import org.bukkit.entity.Player;
@@ -9,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class PlayerDeath implements Listener {
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onPlayerDeath(PlayerDeathEvent event) {
         CombatTag plugin = CombatTag.getPlugin();
 
