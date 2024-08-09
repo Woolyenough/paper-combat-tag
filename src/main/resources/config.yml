@@ -7,6 +7,9 @@ enabled: true
 
 combat-duration: 20.0
 
+# Enabled: if player leaves while in combat, they die and drop their items
+kill-on-quit: true
+
 # Internal placeholder: [otherPlayer]
 combat-tagged-message: "<#cb0000>You are now in combat with [otherPlayer]"
 
@@ -24,9 +27,6 @@ command-blocker:
 
   # Enabled: each whole word must match (e.g., `/warp spawn` will block `/warp spawn` but not `/warp1` or `/warp spawn1`)
   match-entire-words: true
-
-  # Enabled: if player leaves while in combat, they die and drop their items
-  kill-on-quit: true
 
   blocked-cmds:
     - "/warp spawn"

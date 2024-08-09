@@ -16,8 +16,9 @@ public class PlayerDeath implements Listener {
 
         Player player = event.getPlayer();
 
-        int taskId = PlayerHitPlayer.playerTaskLog.get(player.getUniqueId());
-        plugin.getServer().getScheduler().cancelTask(taskId);
+        int taskId = PlayerHitPlayer.playerTaskLog.getOrDefault(player.getUniqueId(), -1);
+        if(taskId != -1)
+            plugin.getServer().getScheduler().cancelTask(taskId);
 
         CombatTag.playersInCombat.remove(player.getUniqueId());
         player.sendActionBar(Component.empty());

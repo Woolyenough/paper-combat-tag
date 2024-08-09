@@ -12,7 +12,7 @@ public class PlayerQuit implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         CombatTag plugin = CombatTag.getPlugin();
 
-        if(plugin.getConfig().getBoolean("kill-on-quit")) return;
+        if(!plugin.getConfig().getBoolean("kill-on-quit")) return;
 
         Player player = event.getPlayer();
         if (CombatTag.playersInCombat.containsKey(player.getUniqueId())) {
