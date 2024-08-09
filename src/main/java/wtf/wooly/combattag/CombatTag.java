@@ -44,6 +44,8 @@ public final class CombatTag extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        getLogger().info("Detecting plugin shutdown, removing all active combat tags.");
+        playersInCombat.clear();
     }
 
     public static Component deserialise(Player player, String message) {
